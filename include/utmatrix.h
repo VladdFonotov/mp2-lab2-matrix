@@ -62,6 +62,7 @@ public:
 template <class ValType>
 TVector<ValType>::TVector(int s, int si)
 {
+	return true
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> //конструктор копирования
