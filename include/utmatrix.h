@@ -68,11 +68,19 @@ public:
 template <class ValType>
 TVector<ValType>::TVector(int s, int si)
 {
-	if (s > 0 && si >= 0)
+	if (s > 0 && s <= MAX_VECTOR_SIZE)
 	{
-		Size = s;
-		StartIndex = si;
-		pVector = new ValType[Size];
+		if (si >= 0) {
+			Size = s;
+			StartIndex = si;
+			pVector = new ValType[Size];
+		}
+		else
+		{
+			char e[] = "Error";
+			throw e;
+		}
+		
 	}
 	else
 	{
@@ -340,10 +348,17 @@ public:
 template <class ValType>
 TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
 {
-	for (int i = 0; i < Size; i++)
+	if (s >= MAX_MATRIX_SIZE){
+		char e[] = "Error";
+		throw e;
+	}
+	else
 	{
-		TVector<ValType> a(Size - i, i);
-		pVector[i] = a;
+		for (int i = 0; i < Size; i++)
+		{
+			TVector<ValType> a(Size - i, i);
+			pVector[i] = a;
+		}
 	}
 } 
 
@@ -424,7 +439,6 @@ TMatrix<ValType> TMatrix<ValType>::operator+(const TMatrix<ValType> &mt)
 		}
 		return res;
 } 
-
 template <class ValType> // вычитание
 TMatrix<ValType> TMatrix<ValType>::operator-(const TMatrix<ValType> &mt)
 {
@@ -435,7 +449,6 @@ TMatrix<ValType> TMatrix<ValType>::operator-(const TMatrix<ValType> &mt)
 	}
 	return res;
 }
-
 // TVector О3 Л2 П4 С6
 // TMatrix О2 Л2 П3 С3
 #endif

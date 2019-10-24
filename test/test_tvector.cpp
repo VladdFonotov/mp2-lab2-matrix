@@ -31,12 +31,16 @@ TEST(TVector, can_create_copied_vector)
 
 TEST(TVector, copied_vector_is_equal_to_source_one)
 {
-  ADD_FAILURE();
+	TVector<int> v(10);
+	TVector<int> v1(v);
+	EXPECT_EQ(v,v1);
 }
 
 TEST(TVector, copied_vector_has_its_own_memory)
 {
-  ADD_FAILURE();
+	TVector<int> v(10);
+	TVector<int> v1(v);
+	EXPECT_NE(&v,&v1);
 }
 
 TEST(TVector, can_get_size)
@@ -63,12 +67,14 @@ TEST(TVector, can_set_and_get_element)
 
 TEST(TVector, throws_when_set_element_with_negative_index)
 {
-  ADD_FAILURE();
+	TVector<int> v(5);
+	ASSERT_ANY_THROW(v[-1]);
 }
 
 TEST(TVector, throws_when_set_element_with_too_large_index)
 {
-  ADD_FAILURE();
+	TVector<int> v(5);
+	ASSERT_ANY_THROW(v[5]);
 }
 
 TEST(TVector, can_assign_vector_to_itself)
@@ -78,27 +84,53 @@ TEST(TVector, can_assign_vector_to_itself)
 
 TEST(TVector, can_assign_vectors_of_equal_size)
 {
-  ADD_FAILURE();
+	const int size = 4;
+	TVector<int> v1(size), v2(size);
+	// v1 = {1, 3}
+	v1[0] = 1;
+	v1[2] = 3;
+	v2 = v1;
+	EXPECT_EQ(v1, v2);
 }
 
 TEST(TVector, assign_operator_change_vector_size)
 {
-  ADD_FAILURE();
+	TVector<int> a(5);
+	a.Resize(7);
+	EXPECT_EQ(7, a.GetSize());
 }
 
 TEST(TVector, can_assign_vectors_of_different_size)
 {
-  ADD_FAILURE();
+	const int size1 = 4,size2=5;
+	TVector<int> v1(size1), v2(size2);
+	// v1 = {1, 3}
+	v1[0] = 1;
+	v1[2] = 3;
+	v2 = v1;
+	EXPECT_EQ(v1, v2);
 }
 
 TEST(TVector, compare_equal_vectors_return_true)
 {
-  ADD_FAILURE();
+	bool a;
+	TVector<int> v1(5), v2(5);
+	v1[0] = 1;
+	v1[3] = 5;
+	v2[0] = 1;
+	v2[3] = 5;
+	a = (v2 == v1);
+	EXPECT_EQ(true, a);
 }
 
 TEST(TVector, compare_vector_with_itself_return_true)
 {
-  ADD_FAILURE();
+	bool a;
+	TVector<int> v1(5);
+	v1[0] = 1;
+	v1[3] = 5;
+	a = (v1==v1);
+	EXPECT_EQ(true, a);
 }
 
 TEST(TVector, vectors_with_different_size_are_not_equal)

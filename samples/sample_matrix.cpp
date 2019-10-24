@@ -6,7 +6,7 @@ void main()
 {
 	try {
 		
-	TMatrix<int> a(5), b(5), c(5);
+		TMatrix<int> a(5), b(5), c(5);
 		int i, j;
 
 		setlocale(LC_ALL, "Russian");
@@ -23,6 +23,7 @@ void main()
 		cout << "Matrix c = a + b" << endl << c << endl;
 		
 	}
+	
 	catch (char* e)
 	{
 		cout << e<<endl;
